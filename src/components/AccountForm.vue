@@ -19,10 +19,6 @@ function deleteAccount(index: number) {
 function updateAccount(index: number, account: any) {
   accountStore.updateAccount(index, account);
 }
-
-function test(){
-  console.log(JSON.stringify(accounts.value));
-}
 </script>
 
 <template>
@@ -40,7 +36,6 @@ function test(){
               </template>
               Для указания нескольких меток для одной пары логин/пароль используйте разделитель ;
             </v-alert>
-            <v-btn @click="test">акаунты</v-btn>
             <v-row v-for="(account, index) in accounts" :key="index" class="mt-4">
               <v-col cols="12">
                 <AccountItem

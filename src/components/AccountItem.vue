@@ -12,11 +12,9 @@ const props = defineProps<{
 const emit = defineEmits(['delete', 'update']);
 
 const account = ref<Account>(props.account);
-const tempLogin = ref(account.value.login); // Временное хранилище для логина
-const tempPassword = ref(account.value.password); // Временное хранилище для пароля
-
+const tempLogin = ref<string>(account.value.login); // Временное хранилище для логина
+const tempPassword = ref<string | null>(account.value.password); // Временное хранилище для пароля
 const labelString = ref((account.value.label || []).map(item => item.text).join(';'));
-console.log(labelString);
 const types = ['LDAP', 'Local'];
 const showPassword = ref(false);
 const isValid = computed(() => validateAccount(account.value, tempLogin.value, tempPassword.value));
@@ -30,6 +28,10 @@ function onLabelBlur() {
 
 function onChange() {
   if (isValid.value) {
+    if (account.value.type == 'LDAP') {
+      account.value.password = null;
+      tempPassword.value = null;
+    }
     emit('update', account.value);
   }
 }
@@ -72,7 +74,7 @@ function validateAccount(account: Account, tempLogin: string, tempPassword: stri
         <v-col cols="2">
           <v-select
             v-model="account.type"
-            @change="onChange"
+            @update:modelValue="onChange"
             :items="types"
             label="Тип записи"
           ></v-select>
