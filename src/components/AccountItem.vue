@@ -11,9 +11,11 @@ const emit = defineEmits(['delete', 'update']);
 const account = ref<Account>(props.account);
 
 const labelString = ref((account.value.label || []).map(item => item.text).join(';'));
+console.log(labelString);
 const types = ['LDAP', 'Local'];
 
 function onLabelBlur() {
+  account.value.label = labelString.value.split(';').map(text => ({ text }));
   emit('update', account.value);
 }
 
