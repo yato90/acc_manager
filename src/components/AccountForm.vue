@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { useAccountStore } from '../store/accountStore';
 import AccountItem from './AccountItem.vue';
+import Question from '../assets/question.png';
 
 const accountStore = useAccountStore();
 const accounts = ref(accountStore.accounts);
@@ -31,7 +32,10 @@ function test(){
           <v-col cols="12">
             <h1>Учетные записи</h1>
             <v-btn @click="addAccount" color="primary"></v-btn>
-            <v-alert type="info" class="mt-4">
+            <v-alert type="info" textclass="mt-4">
+              <template v-slot:prepend>
+                <img :src="Question" alt="Question icon" style="width: 24px; height: 24px;">
+              </template>
               Для указания нескольких меток для одной пары логин/пароль используйте разделитель ;
             </v-alert>
             <v-btn @click="test">акаунты</v-btn>
