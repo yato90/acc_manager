@@ -1,6 +1,6 @@
 # Vue 3 + TypeScript + Vite
 
-Посмотреть демо [DEMO](https://yato90.github.io/directory_organizations/).
+Посмотреть демо [DEMO](https://yato90.github.io/acc_manager/).
 
 ```bash
 git clone https://github.com/yato90/acc_manager.git
