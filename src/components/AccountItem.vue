@@ -3,6 +3,8 @@ import { ref, computed } from 'vue';
 import { defineEmits } from 'vue';
 import { Account } from '../type/main.ts';
 import Trash from '../assets/trash.png';
+import Eye from '../assets/eye.png';
+import Closed_eye from '../assets/closed-eye.png';
 
 const props = defineProps<{
   account: Account,
@@ -16,6 +18,7 @@ const tempPassword = ref(account.value.password); // Временное хран
 const labelString = ref((account.value.label || []).map(item => item.text).join(';'));
 console.log(labelString);
 const types = ['LDAP', 'Local'];
+const showPassword = ref(false);
 const isValid = computed(() => validateAccount(account.value, tempLogin.value, tempPassword.value));
 
 function onLabelBlur() {
@@ -58,7 +61,7 @@ function validateAccount(account: Account, tempLogin: string, tempPassword: stri
   <v-card :class="{'invalid': !isValid}" outlined>
     <v-card-text>
       <v-row>
-        <v-col>
+        <v-col cols="4">
           <v-text-field
             v-model.lazy="labelString"
             @blur="onLabelBlur"
@@ -66,7 +69,7 @@ function validateAccount(account: Account, tempLogin: string, tempPassword: stri
             placeholder="Необязательно"
           ></v-text-field>
         </v-col>
-        <v-col>
+        <v-col cols="2">
           <v-select
             v-model="account.type"
             @change="onChange"
@@ -86,10 +89,18 @@ function validateAccount(account: Account, tempLogin: string, tempPassword: stri
             v-model.lazy="tempPassword"
             @blur="onBlur"
             label="Пароль"
-            type="password"
-          ></v-text-field>
+            :type="showPassword ? 'text' : 'password'"
+          >
+            <template v-slot:append>
+              <img
+                :src="showPassword ? Eye : Closed_eye"
+                @click="showPassword = !showPassword"
+                style="cursor: pointer; width: 24px; height: 24px;"
+              />
+            </template>
+          </v-text-field>
         </v-col>
-        <v-col>
+        <v-col cols="auto">
           <v-btn @click="onDelete">
             <img :src="Trash" alt="Question icon" style="width: 24px; height: 24px;">
           </v-btn>

@@ -30,8 +30,10 @@ function test(){
       <v-container>
         <v-row>
           <v-col cols="12">
-            <h1>Учетные записи</h1>
-            <v-btn @click="addAccount" color="primary"></v-btn>
+            <v-row>
+              <v-col cols="4"><h1>Учетные записи</h1></v-col>
+              <v-col cols="1"><v-btn @click="addAccount">+</v-btn></v-col>
+            </v-row>
             <v-alert type="info" textclass="mt-4">
               <template v-slot:prepend>
                 <img :src="Question" alt="Question icon" style="width: 24px; height: 24px;">
