@@ -7,6 +7,7 @@ export const useAccountStore = defineStore('accountStore', {
     state: () => ({
         accounts: ref([] as Account[]),
     }),
+    persist: true,
     actions: {
         addAccount() {
             this.accounts.push({ label: [], type: 'LDAP', login: 'Значение', password: null });
